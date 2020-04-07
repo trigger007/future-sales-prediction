@@ -9,9 +9,18 @@ import numpy as np
 import pandas as pd
 
 l=[]
-dataset=pd.read_csv("sales_train.csv")
+dataset=pd.read_csv('sales_train.csv')
+itemid=pd.read_csv("items.csv")
 s=dataset['item_cnt_day'].sum()
+x=  itemid.iloc[:, 1:3].values
+for i in range(len(x)):
+    print(x[i][0])
+    
+    
+    
 
+
+print (itemid)
 #date manipulation
 for i in range(len(dataset)):
     l.append(dataset['date'][i])
@@ -24,9 +33,15 @@ l1=[]
 for i in range(len(dataset)):
     if dataset['item_id'][i] not in l1:
         l1.append(dataset['item_id'][i])
+l3=[]
+l1.sort()
+
+#storing in a csv file      
+md={"item_id":l1}
+df=pd.DataFrame(md)
+df.to_csv("all_items.csv")
        
-for i in range(len(dataset)):
-    print(dataset['item_id'][i])
+
     
 
 
