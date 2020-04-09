@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Apr  9 12:11:02 2020
+Created on Thu Apr  9 18:36:26 2020
 
-@author: Shreyansh Satvik
-"""
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  9 12:07:36 2020
-
-@author: Aditya Singh
+@author: ADITYA SINGH
 """
 
 import numpy as np
@@ -63,17 +57,15 @@ df = sales_train.groupby(['shop_id', 'date_block_num', 'item_id'], as_index=Fals
 ######data preprocessing done##################
 ####applying random forest tree regression algorithm to this###########
 X=df.iloc[:,:-1].values
-y=df.iloc[:,5].values
+y=df.iloc[:,3].values
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
 
-from sklearn.ensemble import RandomForestRegressor
-regressor=RandomForestRegressor(n_estimators=10,random_state=0)
+from sklearn.ensemble import ExtraTreesRegressor
+regressor=ExtraTreesRegressor(n_estimators=100,max_depth=10,random_state=0)
 regressor.fit(X_train,y_train)
 
 y_pred=regressor.predict(X_test)
 
-
 rmse = sqrt(mean_squared_error(y_test, y_pred))
-
 print(rmse)
