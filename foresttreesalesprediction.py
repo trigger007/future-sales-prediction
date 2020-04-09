@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 """
+Created on Thu Apr  9 12:11:02 2020
+
+@author: Shreyansh Satvik
+"""
+# -*- coding: utf-8 -*-
+"""
 Created on Thu Apr  9 12:07:36 2020
 
 @author: Shreyansh Satvik
@@ -55,14 +61,14 @@ sales_train['month'] = sales_train['date'].apply(lambda x: x.month)
 df = sales_train.groupby(['shop_id', 'date_block_num', 'item_id', 'year', 'month'], as_index=False)['item_cnt_day'].sum().rename(columns={'item_cnt_day':'item_cnt_month'})
 
 ######data preprocessing done##################
-####applying decision tree regression algorithm to this###########
+####applying random forest tree regression algorithm to this###########
 X=df.iloc[:,:-1].values
 y=df.iloc[:,5].values
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.02, random_state = 0)
 
-from sklearn.tree import DecisionTreeRegressor
-regressor=DecisionTreeRegressor(random_state=0)
+from sklearn.ensemble import RandomForestRegressor
+regressor=RandomForestRegressor(n_estimators=300,random_state=0)
 regressor.fit(X_train,y_train)
 
 y_pred=regressor.predict(X_test)
